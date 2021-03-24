@@ -1,0 +1,4 @@
+---
+# handlers file for zabbix-agent_metricbeat_configured
+#- name: zabbix-agent restart
+#  service: name=zabbix-agent state=restarted

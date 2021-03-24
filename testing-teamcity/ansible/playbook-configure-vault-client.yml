@@ -1,0 +1,6 @@
+---
+- name: configure-vault-client
+  hosts: all
+
+  roles:
+    - configure-vault-client

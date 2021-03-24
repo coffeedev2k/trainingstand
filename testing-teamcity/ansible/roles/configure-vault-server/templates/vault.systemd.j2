@@ -1,0 +1,26 @@
+# {{ ansible_managed }}
+[Unit]
+Description=Service for vault
+After=network-online.target local-fs.target
+Requires=network-online.target
+Conflicts=shutdown.target
+
+[Service]
+User={{ vault_user }}
+Group={{ vault_group }}
+PIDFile={{ vault_pid_file }}
+PermissionsStartOnly=true
+Type=forking
+ExecStartPre=/bin/sh -c 'touch {{ vault_log_file }} && chown {{ vault_user }}:{{ vault_user }} {{ vault_log_file }}'
+ExecStartPre=/bin/sh -c 'touch {{ vault_pid_file }} && chown {{ vault_user }}:{{ vault_user }} {{ vault_pid_file }}'
+ExecStart=/bin/sh -c '{{ vault_install_dir }}/vault {% if vault_server %}server{% else %}client{% endif %} -config=/etc/vault.d/server.hcl > {{ vault_log_file }} 2>&1 & echo $! > {{ vault_pid_file }}'
+ExecStopPost=/bin/rm -f {{ vault_pid_file }}
+KillMode=process
+KillSignal=SIGTERM
+TimeoutStopSec=10
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

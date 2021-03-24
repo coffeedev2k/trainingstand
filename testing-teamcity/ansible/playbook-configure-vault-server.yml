@@ -1,0 +1,6 @@
+---
+- name: configure-vault-server
+  hosts: all
+
+  roles:
+    - configure-vault-server

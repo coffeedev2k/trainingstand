@@ -1,0 +1,22 @@
+{
+  "autopilot": [
+    {
+      "cleanup_dead_servers": true,
+      "last_contact_threshold": "200ms",
+      "max_trailing_logs": 250,
+      "server_stabilization_time": "10s"
+    }
+  ],
+  "bind_addr": "0.0.0.0",
+  "bootstrap": false,
+  "data_dir": "{{ consul_data_dir }}",
+  "disable_remote_exec": true,
+  "disable_update_check": true,
+  "leave_on_terminate": true,
+  "raft_protocol": 3,
+  "retry_join": [
+    "provider=aws tag_key={{ consul_join_tag_key }} tag_value={{ consul_join_tag_value }}"
+  ],
+  "server": true
+}
+

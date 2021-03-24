@@ -1,0 +1,53 @@
+---
+- name: install nginx
+  become: yes
+  apt:
+    name: nginx
+    state: latest
+    update_cache: yes
+
+#- name: copy nginx config
+#  become: yes
+#  copy:
+#    src: "{{ item }}"
+#    dest: "/etc/nginx/sites-enabled/"
+#    owner: root
+#    mode: 0644
+#  with_fileglob:
+#    - ./nginx/consul.conf
+#  tags:
+#    - nginx
+
+- name: copy nginx config
+  become: yes
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/nginx/"
+    owner: root
+    mode: 0644
+  with_fileglob:
+    - ./nginx/nginx.conf
+  tags:
+    - nginx
+
+- name: Remove symlink default site
+  become: yes
+  file:
+   path: "/etc/nginx/sites-enabled/default"
+   state: absent
+
+
+- name: copy nginx httpaccessfile
+  become: yes
+  copy:
+    src: "{{ item }}"
+    dest: "/etc/nginx/"
+    owner: root
+    mode: 0644
+  with_fileglob:
+    - ./nginx/.htpasswd
+  tags:
+    - nginx
+  notify:
+    - restart nginx
+

@@ -1,0 +1,18 @@
+---
+# handlers file for vault
+
+- name: restart vault
+  become: yes
+  service:
+    name: "{{ vault_service_name }}"
+    state: restarted
+  tags:
+    - vault
+
+- name: reload vault
+  become: yes
+  service:
+    name: "{{ vault_service_name }}"
+    state: reloaded
+  tags:
+    - vault

@@ -1,0 +1,59 @@
+---
+# defaults file for vault
+
+vault_version: 1.0.1
+#vault_sha256sum: 0cdb5dd95c918c6237dddeafe2e9d2049558fea79ed43eacdfcd247d5b093d67
+
+#vault_client: false
+#vault_server: true
+vault_telemetry: false
+vault_atlas: false
+
+vault_region: "global"
+vault_datacenter: "dc1"
+vault_name: ''
+vault_log_level: "INFO"
+vault_bind_addr: "127.0.0.1"
+vault_enable_debug: true
+vault_ports_http: 8200
+#vault_ports_rpc: 4647
+#vault_ports_serf: 4648
+vault_addresses_http: "{{ vault_bind_addr }}"
+vault_addresses_rpc: "{{ vault_bind_addr }}"
+vault_addresses_serf: "{{ vault_bind_addr }}"
+vault_advertise_rpc: "{{ vault_bind_addr }}"
+vault_advertise_serf: "{{ vault_bind_addr }}"
+vault_leave_on_interrupt: false
+vault_leave_on_terminate: false
+vault_enable_syslog: false
+vault_syslog_facility: "LOCAL0"
+vault_disable_update_check: false
+vault_disable_anonymous_signature: false
+
+vault_telemetry_statsite_address: ''
+vault_telemetry_statsd_address: ''
+vault_telemetry_disable_hostname: false
+
+vault_server_bootstrap_expect: 3
+vault_server_data_dir: "{{ vault_data_dir }}/server"
+vault_server_protocol_version: ''
+vault_server_num_schedulers: "{{ ansible_processor_cores }}"
+vault_server_enabled_schedulers: []
+vault_server_node_gc_threshold: ''
+vault_server_rejoin_after_leave: ''
+vault_server_retry_join: []
+vault_server_retry_interval: 30s
+vault_server_retry_max: 0
+vault_server_start_join: []
+
+vault_client_state_dir: "{{ vault_data_dir }}/client"
+vault_client_alloc_dir: "{{ vault_data_dir }}/alloc"
+vault_client_servers: []
+vault_client_node_id: ''
+vault_client_node_class: ''
+vault_client_meta: {}
+
+vault_atlas_infrastructure: ''
+vault_atlas_token: ''
+vault_atlas_join: false
+vault_atlas_endpoint: ''

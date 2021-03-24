@@ -1,0 +1,6 @@
+---
+- name: configure-consul-client
+  hosts: all
+
+  roles:
+    - configure-consul-client

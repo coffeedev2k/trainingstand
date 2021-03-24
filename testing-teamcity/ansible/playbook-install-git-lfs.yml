@@ -1,0 +1,6 @@
+---
+- name: install git-lfs
+  hosts: all
+
+  roles:
+    - installgit-lfs

@@ -1,0 +1,19 @@
+---
+# vars file for nomad
+
+nomad_url: https://releases.hashicorp.com/nomad/{{ nomad_version }}/nomad_{{ nomad_version }}_linux_amd64.zip
+nomad_download_dir: /root
+nomad_install_dir: /usr/local/bin
+nomad_data_dir: /opt/nomad
+nomad_config_dir: /etc/nomad.d
+nomad_pid_file: /var/run/nomad.pid
+nomad_log_file: /var/log/nomad.log
+#nomad_user: "{% if nomad_server %}nomad{% else %}root{% endif %}"
+nomad_user: "root"
+#nomad_group: "{% if nomad_server %}nomad{% else %}root{% endif %}"
+nomad_group: "root"
+nomad_service_name: nomad
+nomad_bind_addr: "0.0.0.0"
+nomad_server_bootstrap_expect: 3
+nomad_client: true
+nomad_server: false

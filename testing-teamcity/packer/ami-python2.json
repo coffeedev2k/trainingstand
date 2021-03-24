@@ -1,0 +1,37 @@
+{
+  "variables": {
+      "name": "my-ami",
+      "source_ami": "ami-08a1a61694dd1c82f",
+      "access_key":"",
+      "secret_key":"",
+      "region":"eu-central-1"
+    },
+
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `access_key`}}",
+      "secret_key":"{{user `secret_key`}}",
+      "ami_name": "{{user `name`}}",
+      "region": "{{user `region`}}",
+      "source_ami": "{{user `source_ami`}}",
+      "instance_type": "t2.micro",
+      "communicator": "ssh",
+      "ssh_username": "ubuntu",
+      "run_tags":{"Name":"packer-image"},
+      "force_deregister": true,
+      "force_delete_snapshot": true
+    }
+  ],
+  "provisioners": [
+   {
+            "type": "shell",
+            "inline": ["/usr/bin/sudo apt-get install python-minimal -y"]
+},
+{
+      "type": "ansible",
+      "use_proxy": false,
+      "playbook_file": "../ansible/playbook-control-plane.yml"
+    }
+ ]
+}

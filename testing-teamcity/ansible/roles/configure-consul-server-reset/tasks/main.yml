@@ -1,0 +1,14 @@
+---
+- name: stop consul
+  become: yes
+  service:
+    name: "{{ consul_service_name }}"
+    state: stopped
+  tags:
+    - consul
+
+- name: Clean consul_data_dir
+  become: yes
+  file:
+    state: absent
+    path: "{{ consul_data_dir }}/"

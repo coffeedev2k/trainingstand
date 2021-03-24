@@ -1,0 +1,16 @@
+#- name: "restart NetworkManager"
+#  systemd:
+#    name: "NetworkManager"
+#    state: "restarted"
+#
+- name: "restart pdns-recursor"
+  become: yes
+  systemd:
+    name: "pdns-recursor"
+    state: "restarted"
+
+- name: "restart systemd-resolved"
+  become: yes
+  systemd:
+    name: "systemd-resolved"
+    state: "restarted"

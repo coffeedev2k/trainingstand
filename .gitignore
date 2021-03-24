@@ -1,0 +1,4 @@
+testing-teamcity/terraform/.terraform/plugins/
+testing-teamcity/terraform/project_teamcity/.terraform/plugins/
+testing-teamcity/terraform/dynamodb_table/.terraform/plugins/
+testing-teamcity/docker/context/TeamCity/

@@ -1,0 +1,6 @@
+---
+- name: configure-reverse-proxy-nginx
+  hosts: all
+
+  roles:
+    - configure-reverse-proxy-nginx

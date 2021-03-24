@@ -1,0 +1,6 @@
+---
+- name: configure-nomad-client
+  hosts: all
+
+  roles:
+    - configure-nomad-client

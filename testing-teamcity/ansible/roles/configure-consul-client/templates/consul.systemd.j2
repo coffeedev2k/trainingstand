@@ -1,0 +1,26 @@
+# {{ ansible_managed }}
+[Unit]
+Description=Service for consul
+After=network-online.target local-fs.target
+Requires=network-online.target
+Conflicts=shutdown.target
+
+[Service]
+User={{ consul_user }}
+Group={{ consul_group }}
+PIDFile={{ consul_pid_file }}
+PermissionsStartOnly=true
+Type=forking
+ExecStartPre=/bin/sh -c 'touch {{ consul_log_file }} && chown {{ consul_user }}:{{ consul_user }} {{ consul_log_file }}'
+ExecStartPre=/bin/sh -c 'touch {{ consul_pid_file }} && chown {{ consul_user }}:{{ consul_user }} {{ consul_pid_file }}'
+ExecStart=/bin/sh -c '{{ consul_install_dir }}/consul agent -{% if consul_server %}server{% else %}client{% endif %} -config-dir={{ consul_config_dir }} -ui > {{ consul_log_file }} 2>&1 & echo $! > {{ consul_pid_file }}'
+ExecStopPost=/bin/rm -f {{ consul_pid_file }}
+KillMode=process
+KillSignal=SIGTERM
+TimeoutStopSec=10
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

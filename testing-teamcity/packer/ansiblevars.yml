@@ -1,0 +1,4 @@
+build:
+  consul_url: "https://releases.hashicorp.com/consul/1.7.2/"
+  datacenter: "dc1"
+  consul_binary: "consul_1.7.2_linux_amd64.zip"

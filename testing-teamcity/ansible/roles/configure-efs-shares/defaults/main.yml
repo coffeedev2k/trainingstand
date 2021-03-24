@@ -1,0 +1,4 @@
+---
+# defaults file for ansible_filebeat_configured
+#dest_folder_config: /etc/zabbix/zabbix_agentd.conf.d/
+#dest_folder_config_scripts: /etc/zabbix/scripts/

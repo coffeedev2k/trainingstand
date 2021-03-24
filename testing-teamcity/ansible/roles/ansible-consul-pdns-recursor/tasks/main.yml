@@ -1,0 +1,62 @@
+- name: "install pdns-recursor"
+  become: yes
+  apt:
+    name: "pdns-recursor"
+
+- name: "install resolvconf"
+  become: yes
+  apt:
+    name: "resolvconf"
+
+- name: "enable pdns-recursor"
+  become: yes
+  systemd:
+    name: "pdns-recursor"
+    state: "started"
+    enabled: "yes"
+
+- name: "pdns-recursor for .consul"
+  become: yes
+  lineinfile:
+    dest: "/etc/powerdns/recursor.conf"
+    line: "forward-zones-recurse=consul=127.0.0.1:8600"
+  notify: "restart pdns-recursor"
+
+- name: "set resolved.conf"
+  become: yes
+  copy:
+    src: "resolved.conf"
+    dest: "/etc/systemd/resolved.conf"
+  notify: "restart systemd-resolved"
+
+
+- name: "127.0.0.1 in /etc/resolv.conf"
+  become: yes
+  lineinfile:
+    dest: "/etc/resolv.conf"
+    line: "nameserver 127.0.0.1"
+
+
+- name: "add nameserver 127.0.0.1 in /etc/resolv.conf"
+  become: yes
+  lineinfile:
+    dest: "/etc/resolvconf/resolv.conf.d/head"
+    line: "nameserver 127.0.0.1"
+  notify: "restart systemd-resolved"
+#  notify: "restart pdns-recursor"
+
+- name:
+  become: yes
+  shell: sudo  resolvconf -u
+
+
+#sudo resolvconf -u
+#  notify: "restart pdns-recursor"
+
+#- name: disable resolv.conf control from NM
+#  copy: 
+#    src:  "01-resolv.conf"
+#    dest: "/etc/NetworkManager/conf.d/01-resolv.conf"
+#  notify: "restart NetworkManager"
+
+

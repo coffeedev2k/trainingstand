@@ -1,0 +1,59 @@
+---
+# defaults file for consul
+
+consul_version: 1.0.1
+#consul_sha256sum: 0cdb5dd95c918c6237dddeafe2e9d2049558fea79ed43eacdfcd247d5b093d67
+
+consul_client: false
+consul_server: true
+consul_telemetry: false
+consul_atlas: false
+
+consul_region: "global"
+consul_datacenter: "dc1"
+consul_name: ''
+consul_log_level: "INFO"
+consul_bind_addr: "127.0.0.1"
+consul_enable_debug: true
+consul_ports_http: 4646
+consul_ports_rpc: 4647
+consul_ports_serf: 4648
+consul_addresses_http: "{{ consul_bind_addr }}"
+consul_addresses_rpc: "{{ consul_bind_addr }}"
+consul_addresses_serf: "{{ consul_bind_addr }}"
+consul_advertise_rpc: "{{ consul_bind_addr }}"
+consul_advertise_serf: "{{ consul_bind_addr }}"
+consul_leave_on_interrupt: false
+consul_leave_on_terminate: false
+consul_enable_syslog: false
+consul_syslog_facility: "LOCAL0"
+consul_disable_update_check: false
+consul_disable_anonymous_signature: false
+
+consul_telemetry_statsite_address: ''
+consul_telemetry_statsd_address: ''
+consul_telemetry_disable_hostname: false
+
+consul_server_bootstrap_expect: 3
+consul_server_data_dir: "{{ consul_data_dir }}/server"
+consul_server_protocol_version: ''
+consul_server_num_schedulers: "{{ ansible_processor_cores }}"
+consul_server_enabled_schedulers: []
+consul_server_node_gc_threshold: ''
+consul_server_rejoin_after_leave: ''
+consul_server_retry_join: []
+consul_server_retry_interval: 30s
+consul_server_retry_max: 0
+consul_server_start_join: []
+
+consul_client_state_dir: "{{ consul_data_dir }}/client"
+consul_client_alloc_dir: "{{ consul_data_dir }}/alloc"
+consul_client_servers: []
+consul_client_node_id: ''
+consul_client_node_class: ''
+consul_client_meta: {}
+
+consul_atlas_infrastructure: ''
+consul_atlas_token: ''
+consul_atlas_join: false
+consul_atlas_endpoint: ''

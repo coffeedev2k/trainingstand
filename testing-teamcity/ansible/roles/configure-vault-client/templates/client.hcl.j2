@@ -1,0 +1,18 @@
+listener "tcp" {
+  address          = "0.0.0.0:8200"
+  cluster_address  = "0.0.0.0:8201"
+  tls_disable      = "true"
+}
+
+storage "consul" {
+  address = "127.0.0.1:8500"
+  path    = "vault/"
+  retry_join {
+     auto_join = "provider=aws addr_type=private_v4 region=eu-central-1 tag_key={{ vault_join_tag_key }} tag_value={{ vault_join_tag_value }}"
+     auto_join_scheme = "http"
+  }
+}
+
+
+default_lease_ttl = "15m"
+ui = true

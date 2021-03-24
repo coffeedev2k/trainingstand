@@ -1,0 +1,18 @@
+---
+# tasks file for ansible_filebeat_configured
+#- name: install zabbix-agent
+#  apt:
+#    name: zabbix-agent
+#    state: latest
+#    update_cache: yes
+#
+
+- name: 
+  shell: curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+
+- name: 
+  shell: sudo apt-get install git-lfs
+
+
+
+

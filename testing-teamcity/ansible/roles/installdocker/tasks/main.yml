@@ -1,0 +1,39 @@
+---
+# tasks file for ansible_filebeat_configured
+#- name: install zabbix-agent
+#  apt:
+#    name: zabbix-agent
+#    state: latest
+#    update_cache: yes
+#
+- name: 
+  become: yes
+  shell: sudo apt-get update
+
+
+- name: 
+  become: yes
+  shell: sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y
+
+- name: 
+  become: yes
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+
+- name: 
+  become: yes
+  shell: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+
+- name: install docker
+  become: yes
+  apt:
+    name: docker-ce
+    state: latest
+    update_cache: yes
+
+
+
+
+
+

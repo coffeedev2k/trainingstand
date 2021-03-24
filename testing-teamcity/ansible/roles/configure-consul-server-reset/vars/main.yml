@@ -1,0 +1,4 @@
+---
+# vars file for consul
+consul_data_dir: /opt/consul
+consul_service_name: consul

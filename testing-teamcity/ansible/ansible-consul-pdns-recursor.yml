@@ -1,0 +1,6 @@
+---
+- name: install ansible-consul-pdns-recursor
+  hosts: all
+
+  roles:
+    - ansible-consul-pdns-recursor

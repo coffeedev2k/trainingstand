@@ -1,0 +1,4 @@
+*consul filter=lfs diff=lfs merge=lfs -crlf
+*nomad filter=lfs diff=lfs merge=lfs -crlf
+*vault filter=lfs diff=lfs merge=lfs -crlf
+*packer filter=lfs diff=lfs merge=lfs -crlf

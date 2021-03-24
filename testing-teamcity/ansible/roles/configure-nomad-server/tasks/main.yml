@@ -1,0 +1,112 @@
+---
+
+- name: Create Nomad group
+  become: yes
+  group:
+    name: "{{ nomad_group }}"
+    system: yes
+    state: present
+  when: nomad_server
+  tags:
+    - nomad
+
+- name: Create Nomad user
+  become: yes
+  user:
+    name: "{{ nomad_user }}"
+    shell: /bin/false
+    createhome: no
+    group: "{{ nomad_group }}"
+    system: yes
+    state: present
+  when: nomad_server
+  tags:
+    - nomad
+
+- name: Install Nomad to installation directory - copy all files from dir to destination machine
+  become: yes
+  copy:
+    src: "{{ item }}"
+    dest: "{{ nomad_install_dir }}"
+    owner: root
+    mode: 0755
+  with_fileglob:
+    - ./bin/*nomad
+  tags:
+    - nomad
+
+
+
+
+- name: Create Nomad configuration directory
+  become: yes
+  file:
+    path: "{{ nomad_config_dir }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+  tags:
+    - nomad
+
+- name: Create Nomad data directory
+  become: yes
+  file:
+    path: "{{ nomad_data_dir }}"
+    owner: "{{ nomad_user }}"
+    group: "{{ nomad_group }}"
+    mode: 0755
+    state: directory
+  tags:
+    - nomad
+
+- name: Create Nomad systemd configuration
+  become: yes
+  template:
+    src: nomad.systemd.j2
+    dest: /etc/systemd/system/nomad.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart nomad
+  tags:
+    - nomad
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_version|int >= 16
+
+- name: Create Nomad configuration file
+  become: yes
+  template:
+    src: nomad.hcl.j2
+    dest: "{{ nomad_config_dir }}/nomad.hcl"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart nomad
+  tags:
+    - nomad
+
+- name: Create Nomad server configuration file
+  become: yes
+  template:
+    src: server.hcl.j2
+    dest: "{{ nomad_config_dir }}/server.hcl"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart nomad
+  when: nomad_server
+  tags:
+    - nomad
+
+- name: Ensure Nomad service is started and enabled on boot
+  become: yes
+  service:
+    name: "{{ nomad_service_name }}"
+    state: started
+    enabled: yes
+  tags:
+    - nomad
+

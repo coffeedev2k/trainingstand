@@ -1,0 +1,6 @@
+---
+- name: configure-consul-ui-nginx
+  hosts: all
+
+  roles:
+    - configure-consul-ui-nginx

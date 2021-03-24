@@ -1,0 +1,6 @@
+---
+- name: configure-efs-shares
+  hosts: all
+
+  roles:
+    - configure-efs-shares

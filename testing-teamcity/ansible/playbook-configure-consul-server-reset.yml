@@ -1,0 +1,7 @@
+---
+# consul bootstrap string #sudo consul agent -bootstrap -bootstrap-expect=1 -server -data-dir=/opt/consul -config-dir=/etc/consul.d -ui
+- name: configure-consul-server-reset
+  hosts: all
+
+  roles:
+    - configure-consul-server-reset
